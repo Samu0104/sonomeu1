@@ -1,0 +1,80 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meubanco.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# Modelos
+class Conta(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    senha = db.Column(db.Integer, nullable=False)
+    nome_sobrenome = db.Column(db.String(80), unique=True, nullable=False)
+    data_nasc = db.Column(db.Date, nullable=False)
+    email = db.Column(db.String(60))
+
+class Setor(db.Model):
+    codigo = db.Column(db.Integer, primary_key=True, nullable=False)
+    descricao = db.Column(db.String(40))
+
+class Produto(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    nome = db.Column(db.String(40), nullable=False)
+    un_medida = db.Column(db.String(20), nullable=False)
+    preco = db.Column(db.Float, nullable=False)
+    tipo = db.Column(db.String(40))
+    cd_setor = db.Column(db.Integer, db.ForeignKey('setor.codigo'), nullable=False)
+    ativo = db.Column(db.Boolean, nullable=False)
+    setor = db.relationship('Setor', backref=db.backref('produtos', lazy=True))
+
+class Compra(db.Model):
+    id_conta = db.Column(db.Integer, db.ForeignKey('conta.id'), nullable=False)
+    id_produto = db.Column(db.Integer, db.ForeignKey('produto.id'), nullable=False)
+    qtd = db.Column(db.Integer, nullable=False)
+    conta = db.relationship('Conta', backref=db.backref('compras', lazy=True))
+    produto = db.relationship('Produto', backref=db.backref('compras', lazy=True))
+
+# Criar o banco de dados
+with app.app_context():
+    db.create_all()
+
+    # Inserir dados no banco de dados
+    produtos = [
+        (1,'Coala Boia Lilas','tamanho único',39.90,'short e blusa','infantil Feminino', True),
+        (2,'Inverno Coala','tamanho único',59.90,'calça e blusa','infantil Feminino', True),
+        (3,'Soft Fleece Coala Gelly','tamanho único',39.90,'calça e blusa','infantil Feminino', False),
+        (4,'manga longa','tamanho único',29.90,'calça e blusa','infantil Feminino', True),
+        (5,'Unicórnio ','tamanho único',79.90,'macacão','infantil Feminino', True),
+        (6,'Dino com Cristas 3D ','tamanho único',89.90,'calça e blusa','infantil Masculino', True),
+        (7,'Select Verde ','tamanho único',49.90,'calção e blusa','infantil Masculino', True),
+        (8,'Coala Verde ','tamanho único',69.90,'calça e blusa','infantil Masculino', True),
+        (9,'Sonic ','tamanho único',89.90,'calça e blusa','infantil Masculino', False),
+        (10,'supermman ','tamanho único',39.90,'calção e blusa','infantil Masculino', True),
+        (11,'Americano','tamanho único',120.00,'short e blusa','Feminino', True),
+        (12,'Americano longo ','tamanho único',89.90,'calça e blusa','Feminino', True),
+        (13,'Americano cetin ','tamanho único',89.90,'short e blusa','Feminino', True),
+        (14,'renda ','tamanho único',39.90,'short e regata','Feminino', False),
+        (15,'camuflado ','tamanho único',69.90,'calça e blusa','Feminino', True),
+        (16,'cogumelo ','tamanho único',39.90,'short e regata','Feminino', True),
+        (17,'inverno ','tamanho único',69.90,'calça e blusa','Masculino', True),
+        (18,'bola de futbol ','tamanho único',29.90,'calção e blusa',' Masculino', False),
+        (19,'Americano ','tamanho único',89.90,'calção e blusa',' Masculino', True),
+        (20,'montros S.A ','tamanho único',89.90,'calção e blusa',' Masculino', True),
+        (21,'capitão america ','tamanho único',89.90,'calça e blusa',' Masculino', True),
+        (22,'Minnie Mouse ','PLus size',89.90,'calça e blusa','Feminino', True),
+        (23,'Mickey Mouse','PLus size',129.90,'short e blusa',' Feminino', True),
+        (24,'Americano ','PLus size',59.90,'calção e blusa',' Masculino', True),
+        (25,'Jonas','PLus size',89.90,'calça e blusa',' Masculino', False),
+        (26,'azul listrado ','PLus size',49.90,'calção e blusa',' Masculino', True)
+    ]
+    
+    for p in produtos:
+        produto = Produto(id=p[0], nome=p[1], un_medida=p[2], preco=p[3], tipo=p[4], cd_setor=1, ativo=p[6])
+        db.session.add(produto)
+
+    db.session.commit()
+
+if __name__ == '__main__':
+    app.run(debug=True)

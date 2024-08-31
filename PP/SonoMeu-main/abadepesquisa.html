@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONOMEU</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        header{
+            width: 100xp;
+            height: 300xp;
+            font-family: arial;
+            color:#9db8d1;
+        }
+        #direção{
+            text-align:right;
+        }
+        
+        button{
+            background-color: #ffffff; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: right;
+            align-items: right;
+            text-decoration: none;
+            display: inline-block;
+        }
+        nav{
+            width: 10xp;
+            height: 5xp;
+            background-color:#9db8d1;
+            font-size: 3px;
+        }
+        #maiscomprados{
+            width: 85;
+            height: 20xp;
+            color:#fbe3e9 ;
+            background-color:#9db8d1;
+            font-size: 30px;
+            text-align: center
+        }
+        #links{
+            float: left;
+            width: 20%;
+            height: 500px;
+            padding: 20px;
+            background:#fbe3e9;
+            color:#9db8d1;
+            font-size: 20px;
+        }
+        a{
+            color:#9db8d1;
+        }        
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color:#9db8d1
+        }
+
+        .sidebar {
+            width: 200px;
+            background: #f4f4f4;
+            padding: 1em;
+            position: fixed;
+            height: 100%;
+        }
+
+        .content {
+            margin-left: 220px;
+            padding: 1em;
+            flex: 1;
+        }
+        section::after {
+            content: "";
+            display: table;
+            clear: both;
+        }   
+        article {
+            float:left;
+            padding: 20px;
+            width: 80%; 
+        }
+        footer {
+            background-color: #9db8d1;
+            color: #fff;
+            text-align: right;
+            padding: 1em;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        @media (max-width: 600px) {
+            #links, article {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+    <p id="tit">
+        <div class=>
+            <h1 id="dif">SONOMEU</h1>
+            <a href="SonoMeu-main\cadstrareentrar.html" class="direção">
+                <button>
+                    <img src="1.png" width="50" height="50">
+                </button>
+            </a>
+            <a href="SonoMeu-main\Sacolinha.html" class="direção">
+                <button>
+                    <img src="2.png" width="50" height="50">
+                </button>
+            </a>
+            <a href="#" class="direção">
+                <button>
+                    <img src="3.png" width="50" height="50">
+                </button>
+            </a>
+        </div>
+    </p>
+    </header>
+    <nav>ﾠ</nav>
+    <nav id="maiscomprados">MAIS COMPRADOS</nav>
+    <div class="container">
+    <section>
+        <nav id="links">
+            <a href="masculino.html">masculino</a>
+            <br><br><br><br>
+            <a href="feminino.html">feminino</a>
+            <br><br><br><br>
+            <a href="infantil.html">infantil</a>
+            <br><br><br><br>
+            <a href="plus-size.html">Plus-size</a>
+        </nav>
+        <article>
+            oiii
+        </article>
+    </section>
+    <br><br><br><br><br>
+    <footer class="footer">
+        <div>
+            <img src="FE13239C-3CBE-41EB-8024-CA7871E3F2F6_L0_001-01_08_2024, 14_40_42.png" width="100" height="100" text-align:right />
+        </div>
+    </footer>
+    </div>
+</body>
+</html>
